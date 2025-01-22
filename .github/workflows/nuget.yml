@@ -44,6 +44,7 @@ jobs:
         path: ${{ env.outDir }}/*.nupkg
 
   deploy:
+    environment: Jarc
     runs-on: ubuntu-latest
     needs: build
     steps:
