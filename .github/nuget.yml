@@ -1,4 +1,4 @@
-name: publish
+name: Nuget
 on:
   workflow_dispatch: # Allow running the workflow manually from the GitHub UI
   push:
