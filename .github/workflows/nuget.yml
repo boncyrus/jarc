@@ -32,7 +32,8 @@ jobs:
       run: dotnet test tests/Jarc.UnitTests/Jarc.UnitTests.csproj --verbosity normal
     
     # Package
-    - run: dotnet pack ${{ env.projectPath }} -c Release -o ${{ env.outDir }} --no-restore --no-build
+    - name: Package
+      run: dotnet pack ${{ env.projectPath }} -c Release -o ${{ env.outDir }} --no-restore --no-build
 
     # Publish the NuGet package as an artifact, so they can be used in the following jobs
     - uses: actions/upload-artifact@v3
@@ -57,7 +58,4 @@ jobs:
         uses: actions/setup-dotnet@v4
 
       - name: Publish NuGet package
-        run: |
-          foreach($file in (Get-ChildItem "${{ env.outDir }}" -Recurse -Include *.nupkg)) {
-              dotnet nuget push $file --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
-          }
+        run: dotnet nuget push ${{ env.outDir }}/*.nupkg --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
