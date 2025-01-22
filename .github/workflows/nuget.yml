@@ -32,7 +32,7 @@ jobs:
       run: dotnet test tests/Jarc.UnitTests/Jarc.UnitTests.csproj --verbosity normal
     
     # Package
-    - run: dotnet pack ${{ env.projectPath }} -c Release -o ${{ env.outDir }} --no-restore --no-build
+    - run: dotnet pack ${{ env.projectPath }} -c Release --output ${{ env.outDir }} --no-restore --no-build
 
     # Publish the NuGet package as an artifact, so they can be used in the following jobs
     - uses: actions/upload-artifact@v3
