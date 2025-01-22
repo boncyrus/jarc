@@ -3,6 +3,23 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <PackageId>JARC</PackageId>
+    <Description>Just Another Result Class (JARC) is a lightweight library for .NET that follows the Result pattern.</Description>
+    <PackageProjectUrl>https://github.com/boncyrus/jarc</PackageProjectUrl>
+    <PackageIcon>logo.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/boncyrus/jarc</RepositoryUrl>
+    <PackageTags>Result Results</PackageTags>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\resources\icons\logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
