@@ -1,0 +1,62 @@
+name: publish
+on:
+  workflow_dispatch: # Allow running the workflow manually from the GitHub UI
+  push:
+    branches:
+      - 'main'       # Run the workflow when pushing to the main branch
+  pull_request:
+    branches:
+      - '*'          # Run the workflow for all pull requests
+env:
+  outDir: out
+  projectPath: 'src/Jarc/Jarc.csproj'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0 # Get all history to allow automatic versioning using MinVer
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+
+    - name: Restore dependencies
+      run: dotnet restore ${{ env.projectPath }}
+
+    - name: Build
+      run: dotnet build ${{ env.projectPath }} --no-restore
+
+    - name: Test
+      run: dotnet test ${{ env.projectPath }} --no-build --verbosity normal
+    
+    # Package
+    - run: dotnet pack -c Release -output ${{ env.outDir }} --no-restore --no-build
+
+    # Publish the NuGet package as an artifact, so they can be used in the following jobs
+    - uses: actions/upload-artifact@v3
+      with:
+        name: nuget
+        if-no-files-found: error
+        retention-days: 7
+        path: ${{ env.outDir }}/*.nupkg
+
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     # Download the NuGet package created in the previous job
+  #     - uses: actions/download-artifact@v3
+  #       with:
+  #         name: nuget
+  #         path: ${{ env.outDir }}
+
+  #     # Install the .NET SDK indicated in the global.json file
+  #     - name: Setup .NET Core
+  #       uses: actions/setup-dotnet@v4
+
+  #     - name: Publish NuGet package
+  #       run: |
+  #         foreach($file in (Get-ChildItem "${{ env.NuGetDirectory }}" -Recurse -Include *.nupkg)) {
+  #             dotnet nuget push $file --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+  #         }
