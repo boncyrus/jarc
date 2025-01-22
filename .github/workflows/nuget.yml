@@ -58,7 +58,7 @@ jobs:
 
       - name: Prepare release
         run: nbgv prepare-release
-        working-direectory: ${{ GITHUB_WORKSPACE }}
+        working-directory: ${{ GITHUB_WORKSPACE }}
 
       - name: Set tag
         run: nbgv tag
