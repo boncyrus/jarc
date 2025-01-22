@@ -29,7 +29,7 @@ jobs:
       run: dotnet build ${{ env.projectPath }} --no-restore
 
     - name: Test
-      run: dotnet test tests/Jarc.UnitTests/Jarc.UnitTests.csproj --no-build --verbosity normal
+      run: dotnet test tests/Jarc.UnitTests/Jarc.UnitTests.csproj --verbosity normal
     
     # Package
     - run: dotnet pack ${{ env.projectPath }} -c Release -output ${{ env.outDir }} --no-restore --no-build
