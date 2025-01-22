@@ -61,8 +61,5 @@ jobs:
       - name: Publish NuGet package
         run: dotnet nuget push ${{ env.outDir }}/*.nupkg --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
 
-      - name: Install Nbgv
-        run: dotnet tool install -g nbgv
-
       - name: Set tag
         run: nbgv tag
