@@ -56,15 +56,16 @@ jobs:
           name: nuget
           path: ${{ env.outDir }}
 
+      - name: Prepare release
+        run: nbgv prepare-release
+        working-direectory: ${{ GITHUB_WORKSPACE }}
+
+      - name: Set tag
+        run: nbgv tag
+
       # Install the .NET SDK indicated in the global.json file
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v4
 
       - name: Publish NuGet package
         run: dotnet nuget push ${{ env.outDir }}/*.nupkg --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
-
-      - name: Prepare release
-        run: nbgv prepare-release
-
-      - name: Set tag
-        run: nbgv tag
