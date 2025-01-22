@@ -6,6 +6,10 @@
             "enabled": true
         }
     },
+    "release": {
+        "branchName": "release/v{version}",
+        "tagName": "v{version}"
+    },
     "publicReleaseRefSpec": [
         "^refs/heads/main$"
     ]

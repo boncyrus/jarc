@@ -1,9 +1,11 @@
 name: Nuget
 on:
-  workflow_dispatch: # Allow running the workflow manually from the GitHub UI
   push:
     branches:
       - 'main'       # Run the workflow when pushing to the main branch
+    paths:
+      - 'src/**'
+      - ''.github/**'
   pull_request:
     branches:
       - '*'          # Run the workflow for all pull requests
@@ -60,6 +62,9 @@ jobs:
 
       - name: Publish NuGet package
         run: dotnet nuget push ${{ env.outDir }}/*.nupkg --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+      - name: Prepare release
+        run: nbgv prepare-release
 
       - name: Set tag
         run: nbgv tag
