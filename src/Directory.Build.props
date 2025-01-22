@@ -1,6 +1,7 @@
 ﻿<Project>
   <PropertyGroup>
     <Authors>Bon Cyrus Macalindong</Authors>
+    <RootNamespace>Bcm.Jarc</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
