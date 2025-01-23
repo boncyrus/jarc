@@ -74,7 +74,7 @@ Result<int> Calculate()
 Result<int> result1 = Calculate();
 result1.EnsureSuccess();
 ```
-`EnsureSuccess()` throws the `Error` in the `Result` object if is in a failed state.
+`EnsureSuccess()` throws the `Error` in the `Result` object if it is in a failed state.
 
 ## License
 
