@@ -62,6 +62,20 @@ err =>
 })
 ```
 
+You can also throw the exception and allow it to be handled somewhere else e.g. using `IExceptionHandler` for ASP.NET Core.
+```csharp
+Result<int> Calculate()
+{
+    // Doing something here...
+
+    return new SomeDomainException("An error occured");
+}
+
+Result<int> result1 = Calculate();
+result1.EnsureSuccess();
+```
+`EnsureSuccess()` throws the `Error` in the `Result` object if is in a failed state.
+
 ## License
 
 This project is licensed under the [MIT license](LICENSE.md).
